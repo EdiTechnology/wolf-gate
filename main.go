@@ -46,13 +46,18 @@ func main() {
 
 	db, err := gorm.Open(postgres.Open(dsn), &gorm.Config{})
 
-	db.WithContext(ctx).Select(1)
+	if err != nil {
+		panic(err)
+	}
+
+	var result int
+	err = db.WithContext(ctx).Raw("SELECT 1").Scan(&result).Error
 
 	if err != nil {
 		panic(err)
-	} else {
-		fmt.Println("Connected to postgres.")
 	}
+
+	fmt.Println("Connected to postgres: " + strconv.Itoa(result))
 
 	r := gin.Default()
 
