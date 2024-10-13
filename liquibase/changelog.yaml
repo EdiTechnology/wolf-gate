@@ -1,0 +1,66 @@
+---
+databaseChangeLog:
+  - changeSet:
+      author: erdincakgun
+      changes:
+        - createTable:
+            columns:
+              - column:
+                  autoIncrement: true
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                  name: id
+                  type: int
+              - column:
+                  constraints:
+                    nullable: false
+                    unique: true
+                  name: email
+                  type: varchar(255)
+              - column:
+                  constraints:
+                    nullable: false
+                  name: hashed_password
+                  type: varchar(255)
+            tableName: identities
+      id: 1
+  - changeSet:
+      author: erdincakgun
+      changes:
+        - createTable:
+            columns:
+              - column:
+                  autoIncrement: true
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                  name: id
+                  type: int
+              - column:
+                  constraints:
+                    nullable: false
+                    unique: true
+                  name: name
+                  type: varchar(255)
+            tableName: roles
+      id: 2
+  - changeSet:
+      author: erdincakgun
+      changes:
+        - addForeignKeyConstraint:
+            baseColumnNames: person_id
+            baseTableCatalogName: cat
+            baseTableName: address
+            baseTableSchemaName: public
+            constraintName: fk_address_person
+            deferrable: true
+            initiallyDeferred: true
+            onDelete: CASCADE
+            onUpdate: RESTRICT
+            referencedColumnNames: id
+            referencedTableCatalogName: cat
+            referencedTableName: person
+            referencedTableSchemaName: public
+            validate: true
+      id: 3
